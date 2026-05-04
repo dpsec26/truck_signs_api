@@ -8,7 +8,6 @@ env = environ.Env()
 environ.Env.read_env()
 
 SECRET_KEY= env("SECRET_KEY")
-DEBUG = True
 
 CORS_ALLOWED_ORIGINS = [
     "https://www.signsfortrucks.com",

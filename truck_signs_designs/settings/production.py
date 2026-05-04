@@ -13,8 +13,6 @@ SECRET_KEY= os.environ["SECRET_KEY"]
 # db_from_env = dj_database_url.config()
 # DATABASES["default"].update(db_from_env)
 
-DEBUG = True
-
 CORS_ALLOWED_ORIGINS = [
     "https://truck-signs-frontend-nextjs-4f1tbf3c3-ceci-aguilera.vercel.app",
     "https://truck-signs-frontend-nextjs.vercel.app",
