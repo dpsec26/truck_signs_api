@@ -1,7 +1,7 @@
 import environ
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 env = environ.Env()
 # reading env file
