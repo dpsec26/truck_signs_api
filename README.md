@@ -11,15 +11,137 @@
 
 ## Table of Contents
 * [Description](#description)
+* [Containerization](#containerization)
 * [Installation](#installation)
 * [Screenshots of the Django Backend Admin Panel](#screenshots)
 * [Useful Links](#useful_links)
 
-
-
 ## Description
 
 __Signs for Trucks__ is an online store to buy pre-designed vinyls with custom lines of letters (often call truck letterings). The store also allows clients to upload their own designs and to customize them on the website as well. Aside from the vinyls that are the main product of the store, clients can also purchase simple lettering vinyls with no truck logo, a fire extinguisher vinyl, and/or a vinyl with only the truck unit number (or another number selected by the client).
+
+## Containerization
+
+### Quickstart
+
+1. Clone the repository
+```sh
+git clone git@github.com:dpsec26/truck_signs_api.git
+```
+
+2. Copy the `.env` file
+```sh
+cp truck_signs_designs/settings/simple_env_config.env truck_signs_designs/settings/.env 
+```
+and set the variables you need. For more information see [Environment variables](#environment-variables)
+
+3. Create the network
+```sh
+docker network create truck-signs-network
+```
+The network is needed for communication between the containers.
+
+4. Build the backend image
+```sh
+docker build -t truck-signs-app .
+```
+
+5. Start the database container
+```sh
+docker run -d \
+  --name postgres-db \
+  --network truck-signs-network \
+  -v postgres_data:/var/lib/postgresql/data \
+  --restart unless-stopped \
+  --env-file truck_signs_designs/settings/.env \
+  postgres:15
+```
+
+6. Start the backend container
+```sh
+docker run -d \
+  --name truck-signs-app \
+  --network truck-signs-network \
+  -v truck_signs_media:/app/media \
+  -p 8020:8000 \
+  --restart unless-stopped \
+  --env-file truck_signs_designs/settings/.env \
+  truck-signs-app
+```
+
+### Usage 
+
+#### Environment variables
+
+> [!NOTE]
+> The environment variables are used for different [Settings](#settings).
+
+| Variable | Example Value | Description |
+| --- | --- | --- |
+| DOCKER_SECRET_KEY | truck-signs-secret-key | The secret key used in Django |
+| DOCKER_DB_NAME | truck-signs-db | The name of the PostgreSQL database |
+| DOCKER_DB_USER | truck-signs-user | The PostgreSQL database user |
+| DOCKER_DB_PASSWORD | truck-signs-password | The password for the PostgreSQL user |
+| DOCKER_DB_HOST | postgres-db | The name of the database host |
+| DOCKER_DB_PORT | 5432 | The port of the database host |
+
+For more information see [Installation](#installation)
+
+
+#### Create and remove the docker network
+
+> [!NOTE]
+> The docker network is needed for communication between the containers.
+> For more information see [docker network](https://docs.docker.com/reference/cli/docker/network/).
+
+Create the docker network:
+```sh
+docker network create truck-signs-network
+```
+
+Remove the docker network:
+```sh
+docker network rm truck-signs-network
+```
+
+#### Start and stop the database container
+
+Start the database container:
+```sh
+docker run -d \
+  --name postgres-db \                              # Container name
+  --network truck-signs-network \                   # Docker network
+  -v postgres_data:/var/lib/postgresql/data \       # Bind mount for PostgreSQL data
+  --restart unless-stopped \                        # Restart policy
+  -e POSTGRES_DB=truck-signs-db \                   # env: DOCKER_DB_NAME
+  -e POSTGRES_USER=truck-signs-user \               # env: DOCKER_DB_USER
+  -e POSTGRES_PASSWORD=truck-signs-password \       # env: DOCKER_DB_PASSWORD
+  postgres:15                                       # Image name
+```
+
+Stop the database container:
+```sh
+docker stop postgres-db
+```
+
+#### Start and stop the backend container
+
+Start the backend container:
+```sh
+docker run -d \
+  --name truck-signs-app \                          # Container name
+  --network truck-signs-network \                   # Docker network
+  -v truck_signs_media:/app/media \                 # Bind mount for media
+  -p 8020:8000 \                                    # Publish port to host
+  --restart unless-stopped \                        # Restart policy
+  --env-file truck_signs_designs/settings/.env \    # .env file for configuration
+  truck-signs-app                                   # Image name
+```
+
+Stop the backend container:
+```sh
+docker stop truck-signs-app
+```
 
 ### Settings
 
