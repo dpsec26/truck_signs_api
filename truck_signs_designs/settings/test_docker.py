@@ -13,7 +13,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-
+DOCKER_HOST = env("DOCKER_HOST")
+if DOCKER_HOST:
+    ALLOWED_HOSTS.append(DOCKER_HOST)
 
 DATABASES = {
     'default': {

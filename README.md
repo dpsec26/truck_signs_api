@@ -88,6 +88,7 @@ docker run -d \
 | DOCKER_DB_PASSWORD | truck-signs-password | The password for the PostgreSQL user |
 | DOCKER_DB_HOST | postgres-db | The name of the database host |
 | DOCKER_DB_PORT | 5432 | The port of the database host |
+| DOCKER_HOST | 1.2.3.4 | The IP address of the host
 
 For more information see [Installation](#installation)
 
