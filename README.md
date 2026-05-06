@@ -53,9 +53,13 @@ docker run -d \
   --network truck-signs-network \
   -v postgres_data:/var/lib/postgresql/data \
   --restart unless-stopped \
-  --env-file truck_signs_designs/settings/.env \
+  -e POSTGRES_DB=truck-signs-db \
+  -e POSTGRES_USER=truck-signs-user \
+  -e POSTGRES_PASSWORD=truck-signs-password \
   postgres:15
 ```
+> [!WARNING]
+> Make sure to use a strong password on a real deployment.
 
 6. Start the backend container
 ```sh
