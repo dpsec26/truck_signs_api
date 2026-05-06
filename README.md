@@ -80,6 +80,8 @@ docker run -d \
 > [!NOTE]
 > The environment variables are used for different [Settings](#settings).
 
+The following variables are needed for the Docker setup to work:
+
 | Variable | Example Value | Description |
 | --- | --- | --- |
 | DOCKER_SECRET_KEY | truck-signs-secret-key | The secret key used in Django |
@@ -88,7 +90,10 @@ docker run -d \
 | DOCKER_DB_PASSWORD | truck-signs-password | The password for the PostgreSQL user |
 | DOCKER_DB_HOST | postgres-db | The name of the database host |
 | DOCKER_DB_PORT | 5432 | The port of the database host |
-| DOCKER_HOST | 1.2.3.4 | The IP address of the host
+| DOCKER_HOST | 1.2.3.4 | The IP address of the host |
+| DJANGO_SUPERUSER_USERNAME | admin | The username of the Django admin account |
+| DJANGO_SUPERUSER_EMAIL | admin@example.com | The email of the Django admin account |
+| DJANGO_SUPERUSER_PASSWORD | password | The password of the Django admin account |
 
 For more information see [Installation](#installation)
 
