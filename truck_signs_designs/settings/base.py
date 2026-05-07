@@ -22,9 +22,8 @@ TEMPLATES_DIR = os.path.join(ROOT_BASE_DIR,'templates')
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 
-
-
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1',]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost")
+ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS.split(",") if host.strip()]
 
 
 # Application definition
