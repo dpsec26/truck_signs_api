@@ -27,13 +27,15 @@ __Signs for Trucks__ is an online store to buy pre-designed vinyls with custom l
 1. Clone the repository
 ```sh
 git clone git@github.com:dpsec26/truck_signs_api.git
+cd truck_signs_api
 ```
 
 2. Copy the `.env` file
 ```sh
 cp truck_signs_designs/settings/simple_env_config.env truck_signs_designs/settings/.env 
 ```
-and set the variables you need. For more information see [Environment variables](#environment-variables)
+> [!IMPORTANT]
+> Make sure to set the variables you need. For more information see [Environment variables](#environment-variables)
 
 3. Create the network
 ```sh
